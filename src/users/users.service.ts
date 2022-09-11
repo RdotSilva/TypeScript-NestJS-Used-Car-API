@@ -19,4 +19,16 @@ export class UsersService {
   find(email: string) {
     return this.repo.findBy({ email });
   }
+
+  async update(id: number, attrs: Partial<User>) {
+    const user = await this.findOne(id);
+
+    if (!user) {
+      throw new Error('user not found');
+    }
+
+    // Copy over all attributes to the current user entity
+    Object.assign(user, attrs);
+    return this.repo.save(user);
+  }
 }
