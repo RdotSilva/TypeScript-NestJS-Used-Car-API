@@ -7,8 +7,6 @@ import {
   Column,
 } from 'typeorm';
 
-import { Exclude } from 'class-transformer';
-
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -18,7 +16,6 @@ export class User {
   email: string;
 
   @Column()
-  @Exclude()
   password: string;
 
   // Custom hooks that are executed only when creating and using a new Entity instance
