@@ -8,8 +8,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
 
+// Limit the constructor to a class only
+interface ClassConstructor {
+  new (any: [], ...args): {};
+}
+
 // Custom decorator that we can use to serialize data using the interceptor
-export function Serialize(dto: any) {
+export function Serialize(dto: ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
