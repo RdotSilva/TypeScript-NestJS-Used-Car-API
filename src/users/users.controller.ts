@@ -10,6 +10,7 @@ import {
   Delete,
   NotFoundException,
   UseInterceptors,
+  Session,
 } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -24,6 +25,11 @@ export class UsersController {
     private usersService: UsersService,
     private authService: AuthService,
   ) {}
+
+  @Get('/colors/:color')
+  setColor(@Param('color') color: string, @Session() session: any) {
+    session.color = color;
+  }
 
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
