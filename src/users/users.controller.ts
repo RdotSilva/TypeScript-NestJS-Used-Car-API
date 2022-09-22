@@ -26,11 +26,6 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
-  @Get('/colors/:color')
-  setColor(@Param('color') color: string, @Session() session: any) {
-    session.color = color;
-  }
-
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
     return this.authService.signup(body.email, body.password);
