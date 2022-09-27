@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 
 it('can create an instance of auth service', async () => {
   // Create fake copy of UsersService
+  // TODO: Update fakeUsersService to use Partial types
   const fakeUsersService = {
     find: () => Promise.resolve([]),
     create: (email: string, password: string) =>
