@@ -40,4 +40,8 @@ describe('AuthService', () => {
     expect(salt).toBeDefined();
     expect(hash).toBeDefined();
   });
+
+  it('throws an error if user signs up with an email that is already in use', async () => {
+    // TODO: Implement test -> we will have to update fakeUsersService to return an array with at least one result
+  });
 });
