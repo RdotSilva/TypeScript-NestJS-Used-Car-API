@@ -54,9 +54,18 @@ describe('AuthService', () => {
       ]);
 
     service
-      .signup('max.mustermann@gmx.com', 'password123')
+      .signup('test@test.com', 'test123')
       .catch((err: BadRequestException) => {
         expect(err.message).toEqual('email currently in use');
+        done();
+      });
+  });
+
+  it('throws an error if signin is called with a user that doesnt exist', (done) => {
+    service
+      .signin('test@test.com', 'test123!')
+      .catch((err: BadRequestException) => {
+        expect(err.message).toEqual('user not found');
         done();
       });
   });
