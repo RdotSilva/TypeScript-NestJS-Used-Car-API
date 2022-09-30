@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
@@ -42,16 +43,21 @@ describe('AuthService', () => {
     expect(hash).toBeDefined();
   });
 
-  it('throws an error if user signs up with an email that is already in use', async (done) => {
+  it('throws an error if users signs up with email that is in use', (done) => {
     fakeUsersService.find = () =>
       Promise.resolve([
-        { id: 1, email: 'test@test.com', password: 'test123' } as User,
+        {
+          id: 1,
+          email: 'testperson@test.com',
+          password: 'password123',
+        } as User,
       ]);
 
-    try {
-      await service.signup('test@test.com', 'test123');
-    } catch (err) {
-      done();
-    }
+    service
+      .signup('max.mustermann@gmx.com', 'password123')
+      .catch((err: BadRequestException) => {
+        expect(err.message).toEqual('email currently in use');
+        done();
+      });
   });
 });
