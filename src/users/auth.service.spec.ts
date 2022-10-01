@@ -69,4 +69,15 @@ describe('AuthService', () => {
         done();
       });
   });
+
+  it('throws an error if an invalid password is provided', async () => {
+    fakeUsersService.find = () =>
+      Promise.resolve([
+        { email: 'test@test.com', password: 'test1234' } as User,
+      ]);
+
+    await expect(service.signin('test@t.com', 'password')).rejects.toThrowError(
+      BadRequestException,
+    );
+  });
 });
