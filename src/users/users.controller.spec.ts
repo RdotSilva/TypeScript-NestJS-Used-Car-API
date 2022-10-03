@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
+import { NotFoundException } from '@nestjs/common';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -53,5 +54,12 @@ describe('UsersController', () => {
     const users = await controller.findAllUsers('test@test.com');
     expect(users.length).toEqual(1);
     expect(users[0].email).toEqual('test@test.com');
+  });
+
+  it('findUser throws an error if user with given id is not found', async () => {
+    fakeUsersService.findOne = () => null;
+    await expect(controller.findUser('1')).rejects.toThrowError(
+      NotFoundException,
+    );
   });
 });
