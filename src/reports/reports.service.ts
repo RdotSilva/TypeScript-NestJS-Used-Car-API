@@ -9,6 +9,11 @@ import { User } from 'src/users/user.entity';
 export class ReportsService {
   constructor(@InjectRepository(Report) private repo: Repository<Report>) {}
 
+  /**
+   * Create a new report and save it to the database
+   * @param reportDto DTO to use for the report
+   * @param user User associated with the report (user creating the report)
+   */
   create(reportDto: CreateReportDto, user: User) {
     const report = this.repo.create(reportDto);
 
