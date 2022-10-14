@@ -25,6 +25,9 @@ export class ReportDto {
   @Expose()
   price: number;
 
+  @Expose()
+  approved: boolean;
+
   // obj is a reference to the original report entity
   // Get the user id property from the original report entity and expose it as UserId
   @Transform(({ obj }) => obj.user.id)
